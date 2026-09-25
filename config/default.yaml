@@ -1,0 +1,56 @@
+# Default configuration for the PoisonedRAG competition backend.
+# All paths are relative to the project root (PoisonedRAG_Competition/).
+
+# ---- Dataset / corpus ----
+dataset:
+  # Source artifact (copied/referenced from PoisonedRAG-main). Contains 300
+  # samples with question / correct answer / incorrect answer / adv_texts.
+  source_dir: ../PoisonedRAG-main/results/adv_targeted_results
+  datasets: [nq, hotpotqa, msmarco]   # source datasets to load samples from
+  # Local clean corpus + samples produced by scripts/build_local_corpus.py
+  corpus_path: data/corpus/clean_corpus.jsonl
+  samples:
+    public: data/samples/public.jsonl
+    hidden: data/samples/hidden.jsonl
+  poisons_dir: data/poisons            # pre-generated poison texts (per dataset)
+  num_gold_per_sample: 2               # clean gold docs generated per sample
+  num_filler: 600                      # generic distractor docs in the global corpus
+
+# ---- Retriever (pluggable) ----
+retriever:
+  # backend: tfidf | contriever | sentence_transformer
+  # tfidf = offline, deterministic, no downloads (default).
+  # contriever = faithful to PoisonedRAG (needs transformers + model download).
+  backend: tfidf
+  top_k: 5                             # final retrieval size (PoisonedRAG default)
+  candidate_pool: 60                   # docs exposed to defense per sample
+  score_function: dot                  # dot | cos_sim
+  # For contriever / sentence_transformer backends:
+  contriever_model: facebook/contriever
+  st_model: sentence-transformers/all-MiniLM-L6-v2
+  model_cache_dir: data/models         # local model cache
+
+# ---- LLM (standard OpenAI interface) ----
+llm:
+  config_path: config/llm_config.json
+  # If no api_key is configured, fall back to MockLLM so the pipeline runs offline.
+  allow_mock_fallback: true
+  max_output_tokens: 150
+  temperature: 0.0                     # deterministic for evaluation
+
+# ---- Defense resource constraint ----
+defense:
+  max_operations: 10                   # max DB mutations per defend() call (per spec)
+
+# ---- Attack constraint ----
+attack:
+  max_poison_docs: 5                   # per spec
+  max_bytes_per_doc: 1024              # 1024 UTF-8 bytes per poison doc (per spec)
+
+# ---- Evaluation ----
+eval:
+  # split weights per spec: public 50% / hidden 50%
+  public_weight: 0.5
+  hidden_weight: 0.5
+  defense_score_robust_weight: 0.5
+  defense_score_clean_weight: 0.5

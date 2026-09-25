@@ -1,0 +1,127 @@
+{
+  "attacks": [
+    "baseline_direct",
+    "lm_targeted",
+    "retrieval_optimized"
+  ],
+  "defenses": [
+    "no_defense",
+    "random_delete",
+    "anomaly_filter",
+    "dedup_cluster",
+    "query_consistency"
+  ],
+  "asr_matrix": {
+    "baseline_direct": {
+      "no_defense": 0.6,
+      "random_delete": 0.5833,
+      "anomaly_filter": 0.2,
+      "dedup_cluster": 0.5333,
+      "query_consistency": 0.1167
+    },
+    "lm_targeted": {
+      "no_defense": 0.1,
+      "random_delete": 0.1167,
+      "anomaly_filter": 0.15,
+      "dedup_cluster": 0.1,
+      "query_consistency": 0.0
+    },
+    "retrieval_optimized": {
+      "no_defense": 0.6333,
+      "random_delete": 0.6167,
+      "anomaly_filter": 0.0667,
+      "dedup_cluster": 0.45,
+      "query_consistency": 0.0
+    }
+  },
+  "attack_scores": {
+    "baseline_direct": {
+      "asr_per_defense": {
+        "no_defense": 0.6,
+        "random_delete": 0.5833,
+        "anomaly_filter": 0.2,
+        "dedup_cluster": 0.5333,
+        "query_consistency": 0.1167
+      },
+      "asr_avg": 0.4067
+    },
+    "lm_targeted": {
+      "asr_per_defense": {
+        "no_defense": 0.1,
+        "random_delete": 0.1167,
+        "anomaly_filter": 0.15,
+        "dedup_cluster": 0.1,
+        "query_consistency": 0.0
+      },
+      "asr_avg": 0.0933
+    },
+    "retrieval_optimized": {
+      "asr_per_defense": {
+        "no_defense": 0.6333,
+        "random_delete": 0.6167,
+        "anomaly_filter": 0.0667,
+        "dedup_cluster": 0.45,
+        "query_consistency": 0.0
+      },
+      "asr_avg": 0.3533
+    }
+  },
+  "defense_scores": {
+    "no_defense": {
+      "robust_accuracy_avg": 0.0611,
+      "robust_accuracy_per_attack": {
+        "baseline_direct": 0.05,
+        "lm_targeted": 0.1333,
+        "retrieval_optimized": 0.0
+      },
+      "clean_accuracy": 0.5333,
+      "defense_score": 0.2972
+    },
+    "random_delete": {
+      "robust_accuracy_avg": 0.05,
+      "robust_accuracy_per_attack": {
+        "baseline_direct": 0.05,
+        "lm_targeted": 0.1,
+        "retrieval_optimized": 0.0
+      },
+      "clean_accuracy": 0.4667,
+      "defense_score": 0.2583
+    },
+    "anomaly_filter": {
+      "robust_accuracy_avg": 0.1167,
+      "robust_accuracy_per_attack": {
+        "baseline_direct": 0.1167,
+        "lm_targeted": 0.05,
+        "retrieval_optimized": 0.1833
+      },
+      "clean_accuracy": 0.2667,
+      "defense_score": 0.1917
+    },
+    "dedup_cluster": {
+      "robust_accuracy_avg": 0.1167,
+      "robust_accuracy_per_attack": {
+        "baseline_direct": 0.1,
+        "lm_targeted": 0.1333,
+        "retrieval_optimized": 0.1167
+      },
+      "clean_accuracy": 0.5333,
+      "defense_score": 0.325
+    },
+    "query_consistency": {
+      "robust_accuracy_avg": 0.2444,
+      "robust_accuracy_per_attack": {
+        "baseline_direct": 0.1667,
+        "lm_targeted": 0.2833,
+        "retrieval_optimized": 0.2833
+      },
+      "clean_accuracy": 0.3667,
+      "defense_score": 0.3055
+    }
+  },
+  "num_samples": {
+    "public": 30,
+    "hidden": 30
+  },
+  "retriever_backend": "tfidf",
+  "llm_model": "mock"
+}

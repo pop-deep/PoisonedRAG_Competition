@@ -1,0 +1,15 @@
+# PoisonedRAG Competition Backend - dependencies
+# Core (all offline-runnable)
+numpy>=1.24
+scikit-learn>=1.3
+tqdm>=4.65
+PyYAML>=6.0
+openai>=1.0          # standard OpenAI-compatible interface
+
+# Retriever backends (optional - install to enable stronger retrieval)
+# transformers>=4.35     # for ContrieverRetriever
+# sentence-transformers>=2.2  # for SentenceTransformerRetriever
+# torch>=2.0             # required by the two above
+
+# Dataset download (optional - for real BEIR datasets)
+# beir>=1.0

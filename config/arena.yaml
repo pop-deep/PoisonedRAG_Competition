@@ -1,0 +1,26 @@
+# Arena configuration: which attacks x defenses to run in the full match.
+# The arena runs every (attack, defense) pair (full round-robin) per the spec.
+# Add a new attack/defense by dropping a file in attacks/ or defenses/ and
+# listing its registry name here - no other changes needed.
+
+attacks:
+  - baseline_direct        # Baseline-A: direct wrong-knowledge insertion
+  - lm_targeted            # PoisonedRAG black-box (LLM-gen or pre-generated)
+  - retrieval_optimized    # retrieval-optimized poison (query stuffing)
+
+defenses:
+  - no_defense             # baseline: do nothing
+  - random_delete          # baseline: random deletion
+  - anomaly_filter         # anomaly text filtering (length / repetition / keywords)
+  - dedup_cluster          # near-duplicate clustering + dedup
+  - query_consistency      # query-document consistency rerank/filter
+
+# Number of samples to evaluate per split. Set to null for all samples.
+# Small defaults so the full matrix runs quickly during development.
+max_samples:
+  public: 30
+  hidden: 30
+
+# Also measure CleanAccuracy (defense on a clean, unpoisoned DB).
+measure_clean_accuracy: true
+clean_samples: 30
