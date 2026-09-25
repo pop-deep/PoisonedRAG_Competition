@@ -1,0 +1,2 @@
+# PoisonedRAG_Competition
+基于PoisonedRAG的攻防对抗赛题
